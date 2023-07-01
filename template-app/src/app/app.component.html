@@ -1,0 +1,7 @@
+<h1>Template driven forms</h1>
+<form #f="ngForm" (ngSubmit)="update(f)">
+<input type="text" name="firstName" ngModel><br>
+<input type="text" name="lastName" ngModel><br>
+<input type="text" name="id" ngModel><br>
+<button type="submit">Submit</button>
+</form>

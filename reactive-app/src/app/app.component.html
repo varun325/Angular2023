@@ -1,0 +1,13 @@
+<h1>Reactive forms module</h1>
+<form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)">
+  <input type="text" name="firstName" formControlName="firstName"><br>
+  <input type="text" name="lastName" formControlName="lastName"><br>
+  <p *ngIf="myForm.get('id')?.hasError('invalidId')">Id is invalid</p>
+  <input type="text" name="id" formControlName="id"><br>
+  <form formGroupName="address">
+    <input type="text" name="street" formControlName="street"><br>
+    <input type="text" name="pincode" formControlName="pinCode"><br>
+    <input type="text" name="state" formControlName="state"><br>
+  </form>
+  <button type="submit" [disabled]="!myForm.valid || !myForm.get('address')?.valid">Submit</button>
+</form>
