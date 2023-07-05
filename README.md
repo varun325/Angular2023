@@ -199,7 +199,8 @@ Whole end to end Angular sample applications with state management using ngrx an
             <input type="text" name="state" formControlName="state"><br>
         </form>
         <button type="submit" [disabled]="!myForm.valid || !myForm.get('address')?.valid">Submit</button>
-        </form>```
+        </form>
+        ```
     - For example let's write a custom validator that returns invalidId in case the id field doesn't start with prefix 123
     -  ```typescript
               constructor(fb: FormBuilder){
@@ -238,3 +239,50 @@ Whole end to end Angular sample applications with state management using ngrx an
         console.log('address changed to',form);
         });
     ```
+- ## Http
+- Angular provides it's own http library which can be used by importing the HttpClientModule
+- the HttpClient object can be used to make http requests
+- This object returns an Observable which one can subscribe to
+- For example:
+- ```html
+    <p>simple-http-component works!</p>
+    <button type="button" (click)="makeRequest()">Fetch</button>
+    <div *ngIf="loading">loading....</div>
+    <pre>{{data|json}}</pre>
+    ```
+- ```typescript
+    import { Component, OnInit } from '@angular/core';
+    import {HttpClient} from '@angular/common/http';
+
+    @Component({
+    selector: 'app-simple-http-component',
+    templateUrl: './simple-http-component.component.html',
+    styleUrls: ['./simple-http-component.component.css']
+    })
+    export class SimpleHttpComponentComponent implements OnInit{
+
+    data : Object;
+    loading: boolean;
+
+    constructor(private http : HttpClient){
+        this.loading = false;
+        this.data = {};
+    }
+
+    makeRequest(): void{
+
+        this.loading = true;
+        this.http.get('https://jsonplaceholder.typicode.com/posts/1')
+        .subscribe(data=>{
+        this.data = data;
+        this.loading = false;
+        });
+    }
+
+    ngOnInit(): void {
+        
+    }
+
+    }
+    ```
+- It can be observed that the http.get() method returns and observable which can be subscribed to and change local data of the component.
